@@ -80,8 +80,8 @@
     w.innerHTML = '<div class="titlebar"><div class="tl"><button type="button" class="close" aria-label="Close ' + esc(o.title) + '">' + TL_ICONS[0] + '</button>' +
       '<button type="button" class="min" aria-label="Minimise">' + TL_ICONS[1] + '</button><button type="button" class="zoom" aria-label="Zoom">' + TL_ICONS[2] + '</button></div>' +
       '<div class="title">' + esc(o.title) + '</div></div><div class="wbody"></div>';
-    var vw = window.innerWidth, vh = window.innerHeight;
-    var ww = Math.min(o.w || 760, vw - 40), hh = Math.min(o.h || 520, vh - 150);
+    var vw = Math.max(window.innerWidth, 360), vh = Math.max(window.innerHeight, 480);
+    var ww = Math.max(300, Math.min(o.w || 760, vw - 40)), hh = Math.max(220, Math.min(o.h || 520, vh - 150));
     var x = o.x != null ? o.x : Math.max(16, Math.min(vw - ww - 130, 70 + cascade * 30));
     var y = o.y != null ? o.y : Math.max(40, Math.min(vh - hh - 90, 52 + cascade * 26));
     cascade = (cascade + 1) % 6;
@@ -381,8 +381,19 @@
     }
   });
 
+  // keep windows reachable when the browser window shrinks
+  window.addEventListener('resize', function () {
+    if (mobile()) return;
+    $$('.win').forEach(function (w) {
+      if (w.offsetWidth > window.innerWidth - 16) w.style.width = (window.innerWidth - 16) + 'px';
+      w.style.left = Math.max(8, Math.min(w.offsetLeft, window.innerWidth - 160)) + 'px';
+      w.style.top = Math.max(36, Math.min(w.offsetTop, window.innerHeight - 120)) + 'px';
+    });
+  });
+
   // ------------------------------------------------------------------ boot
   function boot() {
+    if (window.innerWidth < 50) { window.addEventListener('resize', boot, { once: true }); return; }  // page not laid out yet
     var hash = decodeURIComponent((location.hash || '').slice(1));
     if (mobile()) openReadme();
     else { openFinder('all'); openReadme(); }
