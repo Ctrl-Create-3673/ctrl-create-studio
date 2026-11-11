@@ -1,4 +1,5 @@
-/* Portfolio content. Each project's images live in assets/work/<id>/NN.webp (+ NN-thumb.webp). */
+/* Portfolio content. Each project's images live in assets/work/<id>/NN.webp (+ NN-thumb.webp).
+   `guide: 4` adds brand-guide pages (assets/work/<id>/guide-NN.webp) and a PDF (assets/guides/<id>.pdf). */
 window.CC = {
   contact: {
     email: 'ctrlpluscreate3673@gmail.com',
@@ -12,36 +13,37 @@ window.CC = {
     { id: 'print',  name: 'Print & Editorial', short: 'Print',    color: 'blue' },
     { id: 'web',    name: 'Websites',          short: 'Websites', color: 'teal' },
     { id: 'motion', name: 'Motion & Video',    short: 'Motion',   color: 'orange' },
+    { id: 'guides', name: 'Brand Guides',      short: 'Brand Guides', color: 'blue' },
     { id: 'brand',  name: 'Our Brand',         short: 'Our Brand', color: 'ink' }
   ],
 
   projects: [
     // ---------------------------------------------------------------- logos & identity
-    { id: 'aval-tech', folder: 'logos', title: 'Aval Tech', kind: 'Logo + brand guide', ext: 'ai', pages: 2, modified: 'Sep 2021',
+    { id: 'aval-tech', folder: 'logos', guide: 4, title: 'Aval Tech', kind: 'Logo + brand guide', ext: 'ai', pages: 2, modified: 'Sep 2021',
       text: 'Logo for Aval Tech, a company offering complete solutions for flow-control systems. The mark combines the A and T into a valve-wheel emblem, delivered with a one-page guide covering colours, typography and how the letterforms were built.',
       tags: ['Logo design', 'Brand guide', 'Industrial'] },
-    { id: 'kissan-india-agro', folder: 'logos', title: 'Kissan India Agro', kind: 'Logo', ext: 'ai', pages: 1, modified: 'Jan 2022',
+    { id: 'kissan-india-agro', folder: 'logos', guide: 4, title: 'Kissan India Agro', kind: 'Logo', ext: 'ai', pages: 1, modified: 'Jan 2022',
       text: 'Wordmark for Kissan India Agro, an agriculture brand. The "i" grows into a sprouting leaf, set in fresh greens with a warm gold tagline.',
       tags: ['Logo design', 'Agriculture'] },
-    { id: 'mufaddal-creation-logo', folder: 'logos', title: 'Mufaddal Creation', kind: 'Logo', ext: 'ai', pages: 1, modified: 'Oct 2023',
+    { id: 'mufaddal-creation-logo', folder: 'logos', guide: 4, title: 'Mufaddal Creation', kind: 'Logo', ext: 'ai', pages: 1, modified: 'Oct 2023',
       text: 'Bilingual logo for Mufaddal Creation: Arabic calligraphy and a flowing English script, framed by a hand-drawn botanical wreath.',
       tags: ['Logo design', 'Calligraphy'], related: 'mufaddal-creation-website' },
-    { id: 'calligraphy-name-logo', folder: 'logos', title: 'Calligraphy Name Logo', kind: 'Logo', ext: 'ai', pages: 1, modified: 'Dec 2021',
+    { id: 'calligraphy-name-logo', folder: 'logos', guide: 4, title: 'Calligraphy Name Logo', kind: 'Logo', ext: 'ai', pages: 1, modified: 'Dec 2021',
       text: 'A personal name mark in Arabic calligraphy, set inside an ornamental lantern with floral details.',
       tags: ['Logo design', 'Calligraphy'] },
-    { id: 'nivedya-dies-tools', folder: 'logos', title: 'Nivedya Dies & Tools', kind: 'Logo · 6 variations', ext: 'ai', pages: 6, modified: 'Jun 2021',
+    { id: 'nivedya-dies-tools', folder: 'logos', guide: 4, title: 'Nivedya Dies & Tools', kind: 'Logo · 6 variations', ext: 'ai', pages: 6, modified: 'Jun 2021',
       text: 'Monogram logo for Nivedya Dies & Tools, specialists in plastic moulds. The ND mark was explored in six colour and typography variations.',
       tags: ['Logo design', 'Monogram', 'Industrial'] },
-    { id: 'noorani-ice-cream', folder: 'logos', title: 'Noorani Ice Cream', kind: 'Logo, card, menu & banner', ext: 'ai', pages: 3, modified: 'Dec 2021',
+    { id: 'noorani-ice-cream', folder: 'logos', guide: 4, title: 'Noorani Ice Cream', kind: 'Logo, card, menu & banner', ext: 'ai', pages: 3, modified: 'Dec 2021',
       text: 'Identity for Noorani Ice Cream: a badge logo, business card, flavour menu and a promotional banner.',
       tags: ['Logo design', 'Stationery', 'Menu design'] },
-    { id: 'vvdg-world', folder: 'logos', title: 'VVDG World Pvt Ltd', kind: 'Logo · 3 directions', ext: 'ai', pages: 3, modified: 'Jul 2021',
+    { id: 'vvdg-world', folder: 'logos', guide: 4, title: 'VVDG World Pvt Ltd', kind: 'Logo · 3 directions', ext: 'ai', pages: 3, modified: 'Jul 2021',
       text: 'Three logo directions for VVDG World. The final mark brings air and sea freight together inside a single globe.',
       tags: ['Logo design', 'Logistics'] },
-    { id: 'madrasa-ezziyah', folder: 'logos', title: 'Al-Madrasatul-Ezziyah', kind: 'Emblem', ext: 'ai', pages: 1, modified: 'Mar 2021',
+    { id: 'madrasa-ezziyah', folder: 'logos', guide: 4, title: 'Al-Madrasatul-Ezziyah', kind: 'Emblem', ext: 'ai', pages: 1, modified: 'Mar 2021',
       text: 'A calligraphic emblem for Al-Madrasatul-Ezziyah, a madrasa in Dohad.',
       tags: ['Emblem', 'Calligraphy', 'Education'] },
-    { id: 'marjaan-traders', folder: 'logos', title: 'Marjaan Traders', kind: 'Logo + business cards', ext: 'ai', pages: 3, modified: 'Oct 2021',
+    { id: 'marjaan-traders', folder: 'logos', guide: 4, title: 'Marjaan Traders', kind: 'Logo + business cards', ext: 'ai', pages: 3, modified: 'Oct 2021',
       text: 'Logo and business cards for Marjaan, manufacturers and traders of cages for dogs, cats, rabbits and birds.',
       tags: ['Logo design', 'Business cards'] },
 

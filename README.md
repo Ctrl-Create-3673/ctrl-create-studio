@@ -12,6 +12,7 @@ A portfolio that opens like a Mac desktop. Visitors browse our work in Finder-st
 - **Quick Look.** Page-by-page galleries with arrow keys, swipe and a thumbnail strip, plus project info and live links.
 - **Contact.** A Mail-style compose window (opens your email app), WhatsApp and phone.
 - **Phones.** Windows open full screen, the desktop becomes a home screen, and everything opens with a tap.
+- **Brand guides.** Each of the 9 client logos has a 4-page guide (logo versions, clear space, minimum size, colour palette with HEX / RGB / CMYK, typography, don'ts). It's in the Brand Guides folder and after each logo's artwork in Quick Look, with a PDF download (`assets/guides/`).
 - **Shareable links.** `…/#bemcon-steel` opens that project directly.
 
 ## Files

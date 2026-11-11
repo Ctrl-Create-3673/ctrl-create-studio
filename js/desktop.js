@@ -33,7 +33,7 @@
     right: '<path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>',
     out: '<path d="M14 4h6v6M20 4l-9 9M18 14v4.5A1.5 1.5 0 0 1 16.5 20h-11A1.5 1.5 0 0 1 4 18.5v-11A1.5 1.5 0 0 1 5.5 6H10" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>'
   };
-  var FOLDER_GLYPH = { logos: 'nib', print: 'book', web: 'globe', motion: 'play', brand: 'cc', all: 'grid' };
+  var FOLDER_GLYPH = { logos: 'nib', print: 'book', web: 'globe', motion: 'play', brand: 'cc', guides: 'lines', all: 'grid' };
   function g(name, cls) { return '<svg class="' + (cls || '') + '" viewBox="0 0 24 24" aria-hidden="true">' + GLYPH[name] + '</svg>'; }
   function folderIcon(color, glyph) {
     var t = TINT[color], id = 'fg' + (++uid);
@@ -147,7 +147,8 @@
   function itemsFor(folder, q) {
     q = (q || '').trim().toLowerCase();
     return D.projects.filter(function (p) {
-      if (folder !== 'all' && p.folder !== folder) return false;
+      if (folder === 'guides') { if (!p.guide) return false; }
+      else if (folder !== 'all' && p.folder !== folder) return false;
       if (!q) return true;
       return (p.title + ' ' + p.kind + ' ' + p.tags.join(' ') + ' ' + p.text).toLowerCase().indexOf(q) >= 0;
     });
@@ -178,13 +179,14 @@
     $('#fTitle').textContent = name;
     $$('[data-folder]', w).forEach(function (b) { b.setAttribute('aria-current', b.dataset.folder === f ? 'true' : 'false'); });
     var grid = $('#fGrid');
+    var asGuide = f === 'guides';
     grid.innerHTML = list.length ? list.map(function (p) {
       return '<button type="button" class="f-item" role="option" aria-selected="false" data-id="' + p.id + '">' +
-        '<span class="f-thumb"><img src="' + thumbOf(p) + '" alt="" loading="lazy">' + (p.video ? '<span class="play">' + g('play') + '</span>' : '') +
-        '<span class="badge ' + p.ext + '">' + (p.ext === 'web' ? 'web' : p.ext) + '</span></span>' +
-        '<span class="f-name">' + esc(p.title) + '</span><span class="f-kind">' + esc(p.kind) + '</span></button>';
+        '<span class="f-thumb"><img src="' + (asGuide ? 'assets/work/' + p.id + '/guide-01-thumb.webp' : thumbOf(p)) + '" alt="" loading="lazy">' + (p.video ? '<span class="play">' + g('play') + '</span>' : '') +
+        '<span class="badge ' + (asGuide ? 'pdf' : p.ext) + '">' + (asGuide ? 'pdf' : p.ext === 'web' ? 'web' : p.ext) + '</span></span>' +
+        '<span class="f-name">' + esc(p.title) + (asGuide ? ' Brand Guide' : '') + '</span><span class="f-kind">' + (asGuide ? 'Brand guidelines · ' + p.guide + ' pages' : esc(p.kind)) + '</span></button>';
     }).join('') : '<p class="f-empty">No projects match “' + esc(finderState.q) + '”.</p>';
-    $$('.f-item', grid).forEach(function (b) { opener(b, function () { openProject(b.dataset.id); }); });
+    $$('.f-item', grid).forEach(function (b) { opener(b, function () { openProject(b.dataset.id, asGuide ? 'guide' : null); }); });
     $('#fStatus').textContent = list.length + (list.length === 1 ? ' item' : ' items') + (coarse ? ' · tap to open' : ' · double-click to open');
   }
 
@@ -195,24 +197,28 @@
     var btns = '';
     if (p.url) btns += '<a class="btn btn-primary" href="' + p.url + '" target="_blank" rel="noopener noreferrer">Visit live website ' + g('out') + '</a>';
     if (p.related && byId[p.related]) btns += '<button type="button" class="btn btn-ghost" data-related="' + p.related + '">See ' + esc(byId[p.related].kind.split(' ')[0].toLowerCase()) + ' →</button>';
-    btns += '<button type="button" class="btn ' + (p.url ? 'btn-ghost' : 'btn-primary') + '" data-similar>Start a similar project</button>';
+    if (p.guide) btns += '<a class="btn btn-primary" href="assets/guides/' + p.id + '.pdf" download="' + esc(p.title) + ' Brand Guide.pdf">Download brand guide (PDF)</a>';
+    btns += '<button type="button" class="btn ' + (p.url || p.guide ? 'btn-ghost' : 'btn-primary') + '" data-similar>Start a similar project</button>';
     return '<aside class="pv-info"><div class="kicker">' + esc(folder.name) + '</div><h2>' + esc(p.title) + '</h2><p>' + esc(p.text) + '</p>' +
       '<dl class="meta"><dt>Kind</dt><dd>' + esc(p.kind) + '</dd><dt>Format</dt><dd>' + FORMAT[p.ext] + '</dd>' +
-      (p.pages > 1 ? '<dt>Shown</dt><dd>' + p.pages + ' pages</dd>' : '') + '<dt>' + (p.ext === 'web' ? 'Status' : 'Modified') + '</dt><dd>' + esc(p.modified) + '</dd></dl>' +
+      (p.pages > 1 ? '<dt>Shown</dt><dd>' + p.pages + ' pages</dd>' : '') + (p.guide ? '<dt>Brand guide</dt><dd>' + p.guide + ' pages (after the artwork)</dd>' : '') + '<dt>' + (p.ext === 'web' ? 'Status' : 'Modified') + '</dt><dd>' + esc(p.modified) + '</dd></dl>' +
       '<div class="tags">' + p.tags.map(function (t) { return '<span>' + esc(t) + '</span>'; }).join('') + '</div><div class="btn-row">' + btns + '</div></aside>';
   }
   function wireInfo(body, p) {
     var rel = $('[data-related]', body); if (rel) rel.addEventListener('click', function () { openProject(rel.dataset.related); });
     $('[data-similar]', body).addEventListener('click', function () { open('contact', { subject: 'A project like ' + p.title }); });
   }
-  function openProject(id) {
+  function openProject(id, start) {
     var p = byId[id]; if (!p) return;
     try { history.replaceState(null, '', '#' + id); } catch (e) {}
     if (p.video) return openVideo(p);
     var r = makeWin('pv:' + id, { title: p.title + (p.ext === 'web' ? '' : '.' + p.ext), cls: 'preview', w: 1040, h: 660 });
-    if (r.existed) return;
-    var n = p.pages || 1, cur = 0;
-    var src = function (i, th) { return 'assets/work/' + p.id + '/' + String(i + 1).padStart(2, '0') + (th ? '-thumb' : '') + '.webp'; };
+    if (r.existed) { if (start === 'guide' && r.el._show) r.el._show(p.pages || 1); return; }
+    var art = p.pages || 1, n = art + (p.guide || 0), cur = 0;
+    var src = function (i, th) {
+      var name = i < art ? String(i + 1).padStart(2, '0') : 'guide-' + String(i - art + 1).padStart(2, '0');
+      return 'assets/work/' + p.id + '/' + name + (th ? '-thumb' : '') + '.webp';
+    };
     r.body.innerHTML = '<div class="pv-stage"><div class="pv-view"><img alt=""><button type="button" class="pv-nav prev" aria-label="Previous page">' + g('left') + '</button>' +
       '<button type="button" class="pv-nav next" aria-label="Next page">' + g('right') + '</button></div>' +
       (n > 1 ? '<div class="pv-strip">' + Array.apply(null, Array(n)).map(function (_, i) { return '<button type="button" aria-label="Page ' + (i + 1) + '"><img src="' + src(i, true) + '" alt="" loading="lazy"></button>'; }).join('') + '</div>' : '') +
@@ -220,7 +226,7 @@
     var view = $('.pv-view', r.body), img = $('img', view), strip = $$('.pv-strip button', r.body);
     function show(i) {
       cur = Math.max(0, Math.min(n - 1, i));
-      img.src = src(cur); img.alt = p.title + (n > 1 ? ', page ' + (cur + 1) + ' of ' + n : '');
+      img.src = src(cur); img.alt = p.title + (cur >= art ? ' brand guide, page ' + (cur - art + 1) + ' of ' + p.guide : n > 1 ? ', page ' + (cur + 1) + ' of ' + art : '');
       $('.prev', view).disabled = cur === 0; $('.next', view).disabled = cur === n - 1;
       strip.forEach(function (b, k) { b.setAttribute('aria-current', k === cur ? 'true' : 'false'); });
       if (strip[cur]) strip[cur].scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -235,7 +241,8 @@
     view.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
     view.addEventListener('touchend', function (e) { if (sx == null) return; var dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 45) show(cur + (dx < 0 ? 1 : -1)); sx = null; });
     wireInfo(r.body, p);
-    show(0);
+    r.el._show = show;
+    show(start === 'guide' ? art : 0);
   }
   function openVideo(p) {
     var r = makeWin('pv:' + p.id, { title: p.title + '.mp4', cls: 'preview', w: 900, h: 680 });
