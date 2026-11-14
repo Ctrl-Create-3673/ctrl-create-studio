@@ -14,7 +14,7 @@
 
   // ------------------------------------------------------------------ icons
   var uid = 0;
-  var TINT = { purple: ['#8A74D6', '#584294'], blue: ['#5B92E3', '#2F6BC6'], teal: ['#45B7B0', '#1F8A86'], orange: ['#F5875F', '#D9512C'], ink: ['#4A5180', '#1D2340'] };
+  var TINT = { purple: ['#8A74D6', '#584294'], blue: ['#5B92E3', '#2F6BC6'], teal: ['#45B7B0', '#1F8A86'], orange: ['#F5875F', '#D9512C'], ink: ['#4A5180', '#1D2340'], sage: ['#8FB08F', '#4B6B52'] };
   var GLYPH = {
     grid: '<path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z" fill="currentColor"/>',
     nib: '<path d="M12 2.5 18 11l-2.6 5H8.6L6 11z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 3v7.2" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="11.4" r="1.5" fill="currentColor"/><path d="M9 18.5h6v2.5H9z" fill="currentColor"/>',
@@ -26,6 +26,7 @@
     mail: '<rect x="3" y="5.5" width="18" height="13" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>',
     chat: '<path d="M12 3.2a8.8 8.8 0 0 0-7.6 13.2L3.2 20.8l4.5-1.2A8.8 8.8 0 1 0 12 3.2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.8 8.6c.3 2.9 3.2 6 6.4 6.6l1.1-1.5-2-1.1-.9.8c-1-.5-2-1.5-2.5-2.6l.8-.9-1.1-2z" fill="currentColor"/>',
     phone: '<path d="M6.6 3.5h3l1.5 4-2 1.3a10.5 10.5 0 0 0 6.1 6.1l1.3-2 4 1.5v3a2 2 0 0 1-2.2 2A16.6 16.6 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>',
+    cal: '<rect x="3.5" y="5" width="17" height="15" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 10h17M8 3v4M16 3v4M9 14.5l2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
     info: '<circle cx="12" cy="12" r="8.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 11v5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="7.8" r="1.3" fill="currentColor"/>',
     folder: '<path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4.4l2 2h8.6A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z" fill="none" stroke="currentColor" stroke-width="1.7"/>',
     search: '<circle cx="10.5" cy="10.5" r="6.2" fill="none" stroke="currentColor" stroke-width="2"/><path d="m15.2 15.2 4.8 4.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
@@ -33,7 +34,7 @@
     right: '<path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>',
     out: '<path d="M14 4h6v6M20 4l-9 9M18 14v4.5A1.5 1.5 0 0 1 16.5 20h-11A1.5 1.5 0 0 1 4 18.5v-11A1.5 1.5 0 0 1 5.5 6H10" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>'
   };
-  var FOLDER_GLYPH = { logos: 'nib', print: 'book', web: 'globe', motion: 'play', brand: 'cc', guides: 'lines', all: 'grid' };
+  var FOLDER_GLYPH = { logos: 'nib', print: 'book', web: 'globe', motion: 'play', brand: 'cc', guides: 'lines', tadbeer: 'cal', all: 'grid' };
   function g(name, cls) { return '<svg class="' + (cls || '') + '" viewBox="0 0 24 24" aria-hidden="true">' + GLYPH[name] + '</svg>'; }
   function folderIcon(color, glyph) {
     var t = TINT[color], id = 'fg' + (++uid);
@@ -191,12 +192,12 @@
   }
 
   // ------------------------------------------------------------------ Quick Look (images) and QuickTime (video)
-  var FORMAT = { ai: 'Adobe Illustrator', pdf: 'PDF', web: 'Live website', mov: 'Video' };
+  var FORMAT = { ai: 'Adobe Illustrator', pdf: 'PDF', web: 'Live website', mov: 'Video', svg: 'SVG vector' };
   function infoPanel(p) {
     var folder = folderById[p.folder];
     var btns = '';
     if (p.url) btns += '<a class="btn btn-primary" href="' + p.url + '" target="_blank" rel="noopener noreferrer">Visit live website ' + g('out') + '</a>';
-    if (p.related && byId[p.related]) btns += '<button type="button" class="btn btn-ghost" data-related="' + p.related + '">See ' + esc(byId[p.related].kind.split(' ')[0].toLowerCase()) + ' →</button>';
+    if (p.related && byId[p.related]) btns += '<button type="button" class="btn btn-ghost" data-related="' + p.related + '">See ' + esc(byId[p.related].title) + ' →</button>';
     if (p.guide) btns += '<a class="btn btn-primary" href="assets/guides/' + p.id + '.pdf" download="' + esc(p.title) + ' Brand Guide.pdf">Download brand guide (PDF)</a>';
     btns += '<button type="button" class="btn ' + (p.url || p.guide ? 'btn-ghost' : 'btn-primary') + '" data-similar>Start a similar project</button>';
     return '<aside class="pv-info"><div class="kicker">' + esc(folder.name) + '</div><h2>' + esc(p.title) + '</h2><p>' + esc(p.text) + '</p>' +
@@ -315,6 +316,10 @@
     if (!e.target.closest('.desk-icon') && !e.target.closest('.win')) $$('.desk-icon').forEach(function (b) { b.setAttribute('aria-selected', 'false'); });
   });
 
+  // more folders than fit one column: wrap the icons into further columns, macOS style
+  function fitIcons() { $('#deskIcons').style.setProperty('--rows', Math.max(3, Math.floor((window.innerHeight - 30 - 14 - 96) / 98))); }
+  fitIcons(); window.addEventListener('resize', fitIcons);
+
   // ------------------------------------------------------------------ dock
   var DOCK = [
     { id: 'finder', label: 'Portfolio', glyph: 'grid', bg: 'linear-gradient(160deg,#7B66C4,#2F6BC6)', go: 'finder:all', win: 'finder' },
@@ -323,6 +328,7 @@
     { label: 'Websites', glyph: 'globe', bg: 'linear-gradient(160deg,#4FC3B9,#1F8A86)', go: 'finder:web' },
     { label: 'Motion & Video', glyph: 'play', bg: 'linear-gradient(160deg,#F5875F,#D9512C)', go: 'finder:motion' },
     { label: 'Our Brand', img: 'assets/brand/ctrl-create-icon-white.svg', bg: 'linear-gradient(160deg,#584294,#2F6BC6)', go: 'finder:brand' },
+    { label: 'Tadbeer', img: 'assets/brand/tadbeer-icon.svg', imgw: '100%', bg: '#4B6B52', go: 'finder:tadbeer' },
     { sep: true },
     { id: 'about', label: 'About', glyph: 'lines', bg: 'linear-gradient(160deg,#FFF6D6,#F4DC8A)', color: '#6B5A1E', go: 'about', win: 'about' },
     { id: 'contact', label: 'Contact', glyph: 'mail', bg: 'linear-gradient(160deg,#8FB0E8,#2F6BC6)', go: 'contact', win: 'contact' },
@@ -330,7 +336,7 @@
   ];
   $('#dockInner').innerHTML = DOCK.map(function (d, i) {
     if (d.sep) return '<span class="dock-sep" aria-hidden="true"></span>';
-    var inner = '<span class="app" style="background:' + d.bg + ';color:' + (d.color || '#fff') + '">' + (d.img ? '<img src="' + d.img + '" alt="" style="width:66%">' : g(d.glyph)) + '</span><span class="tip">' + esc(d.label) + '</span>';
+    var inner = '<span class="app" style="background:' + d.bg + ';color:' + (d.color || '#fff') + '">' + (d.img ? '<img src="' + d.img + '" alt="" style="width:' + (d.imgw || '66%') + '">' : g(d.glyph)) + '</span><span class="tip">' + esc(d.label) + '</span>';
     return d.href ? '<a class="dock-item" href="' + d.href + '" target="_blank" rel="noopener noreferrer" aria-label="' + esc(d.label) + '" data-i="' + i + '">' + inner + '</a>'
                   : '<button type="button" class="dock-item" aria-label="' + esc(d.label) + '" data-i="' + i + '">' + inner + '</button>';
   }).join('');

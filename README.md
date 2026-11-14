@@ -13,6 +13,7 @@ A portfolio that opens like a Mac desktop. Visitors browse our work in Finder-st
 - **Contact.** A Mail-style compose window (opens your email app), WhatsApp and phone.
 - **Phones.** Windows open full screen, the desktop becomes a home screen, and everything opens with a tap.
 - **Brand guides.** Each of the 9 client logos has a 4-page guide (logo versions, clear space, minimum size, colour palette with HEX / RGB / CMYK, typography, don'ts). It's in the Brand Guides folder and after each logo's artwork in Quick Look, with a PDF download (`assets/guides/`).
+- **Tadbeer folder.** The Tadbeer Hijri planner (live app screenshots + link) and its identity (logo renders and an 8-page brand guide with PDF), pulled from the `tadbeer` repo.
 - **Shareable links.** `…/#bemcon-steel` opens that project directly.
 
 ## Files

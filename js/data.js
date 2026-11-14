@@ -14,7 +14,8 @@ window.CC = {
     { id: 'web',    name: 'Websites',          short: 'Websites', color: 'teal' },
     { id: 'motion', name: 'Motion & Video',    short: 'Motion',   color: 'orange' },
     { id: 'guides', name: 'Brand Guides',      short: 'Brand Guides', color: 'blue' },
-    { id: 'brand',  name: 'Our Brand',         short: 'Our Brand', color: 'ink' }
+    { id: 'brand',  name: 'Our Brand',         short: 'Our Brand', color: 'ink' },
+    { id: 'tadbeer', name: 'Tadbeer',         short: 'Tadbeer',   color: 'sage' }
   ],
 
   projects: [
@@ -88,6 +89,14 @@ window.CC = {
     // ---------------------------------------------------------------- our brand
     { id: 'ctrl-create-identity', folder: 'brand', title: 'Ctrl + Create Identity', kind: 'Brand sheet + logo family', ext: 'ai', pages: 2, modified: 'Nov 2026',
       text: 'Our own identity: a double-C monogram holding a cursor (design), a pen nib (craft) and a play button (video). The brand sheet covers the logo family, clear space, colour palette, typography and usage.',
-      tags: ['Brand identity', 'Guidelines'] }
+      tags: ['Brand identity', 'Guidelines'] },
+    // ---------------------------------------------------------------- tadbeer
+    { id: 'tadbeer-app', folder: 'tadbeer', title: 'Tadbeer Planner', kind: 'Hijri planner web app', ext: 'web', pages: 4, modified: 'Live',
+      url: 'https://ctrl-create-3673.github.io/tadbeer/', related: 'tadbeer-identity',
+      text: 'Tadbeer (تدبير) is a personal planner built around the Mumineen Hijri calendar: dashboard, month / year / week / day calendar, tasks, events, notes, reminders, monthly and yearly planners, and a printable A4 PDF calendar in English and Arabic. It runs in the browser with no account, keeps your data on your device, installs like an app and can sync reminders to Google Calendar.',
+      tags: ['Web app', 'Hijri calendar', 'Design', 'Development', 'PWA'] },
+    { id: 'tadbeer-identity', folder: 'tadbeer', guide: 8, title: 'Tadbeer', kind: 'Logo, app icon & brand guide', ext: 'svg', pages: 4, modified: 'Nov 2026', related: 'tadbeer-app',
+      text: 'The Tadbeer identity: a square kufic logo that spells تدبير twice with a calendar check at its centre, a simplified app tile for small sizes, a sage and burgundy palette and a short brand guide covering space, colour, type, voice and usage.',
+      tags: ['Logo design', 'Kufic calligraphy', 'Brand guide', 'App icon'] }
   ]
 };

@@ -71,6 +71,11 @@ html.booted .desktop { animation: boot .9s cubic-bezier(.2, .8, .2, 1) both; }
 .desk-icon[aria-selected="true"] .ic { background: rgba(255, 255, 255, .18); border-radius: 7px; }
 .desk-icon[aria-selected="true"] .lbl { background: var(--blue); text-shadow: none; }
 
+@media (min-width: 761px) {
+  .desk-icons { grid-auto-flow: column; grid-template-rows: repeat(var(--rows, 8), auto); direction: rtl; }
+  .desk-icons > li { direction: ltr; }
+}
+
 /* ------------------------------------------------------------------ windows */
 .windows { position: absolute; inset: 0; pointer-events: none; }
 .win { position: absolute; pointer-events: auto; display: flex; flex-direction: column; min-width: 320px; min-height: 220px; max-width: 100vw; background: var(--win-bg); border-radius: var(--radius); box-shadow: 0 30px 80px rgba(0, 0, 0, .45), 0 0 0 .5px rgba(0, 0, 0, .35), inset 0 0 0 .5px rgba(255, 255, 255, .6); backdrop-filter: blur(40px) saturate(1.5); -webkit-backdrop-filter: blur(40px) saturate(1.5); overflow: hidden; resize: both; animation: winIn .32s cubic-bezier(.2, .9, .3, 1.05); }
@@ -113,7 +118,7 @@ html.booted .desktop { animation: boot .9s cubic-bezier(.2, .8, .2, 1) both; }
 .f-thumb { width: 100%; aspect-ratio: 4 / 3; display: grid; place-items: center; position: relative; }
 .f-thumb img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 4px; box-shadow: 0 6px 16px rgba(20, 24, 43, .18), 0 0 0 .5px rgba(20, 24, 43, .14); background: #fff; }
 .f-thumb .badge { position: absolute; right: 6px; bottom: 4px; font-size: 9px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: #fff; background: var(--ink); padding: 2px 5px; border-radius: 4px; }
-.f-thumb .badge.web { background: var(--blue); } .f-thumb .badge.mov { background: var(--spark); } .f-thumb .badge.pdf { background: #C8402D; } .f-thumb .badge.ai { background: #E07A1F; }
+.f-thumb .badge.web { background: var(--blue); } .f-thumb .badge.mov { background: var(--spark); } .f-thumb .badge.pdf { background: #C8402D; } .f-thumb .badge.ai { background: #E07A1F; } .f-thumb .badge.svg { background: #4B6B52; }
 .f-thumb .play { position: absolute; width: 34px; height: 34px; border-radius: 50%; background: rgba(20, 24, 43, .7); display: grid; place-items: center; }
 .f-thumb .play svg { width: 13px; height: 13px; margin-left: 2px; color: #fff; }
 .f-name { font-size: 12.5px; font-weight: 600; line-height: 1.25; color: var(--text); }
