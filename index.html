@@ -17,6 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/glass.css">
   <script>
     // decide before first paint whether the intro plays (once per visit, never with reduced motion)
     (function () {
@@ -112,7 +113,7 @@
   <!-- ============================================================ desktop -->
   <main class="desktop" id="desktop">
     <h1 class="sr-only">Ctrl + Create Studio portfolio</h1>
-    <div class="wallpaper" aria-hidden="true"><img class="wp-mark" src="assets/brand/ctrl-create-mark-white.svg" alt=""></div>
+    <div class="wallpaper" aria-hidden="true"><div class="wp-aurora"><i></i><i></i><i></i><i></i></div><div class="wp-light" id="wpLight"></div><img class="wp-mark" src="assets/brand/ctrl-create-mark-white.svg" alt=""></div>
     <ul class="desk-icons" id="deskIcons" aria-label="Desktop"></ul>
     <div class="windows" id="windows"></div>
   </main>
@@ -128,5 +129,6 @@
   <script src="js/data.js"></script>
   <script src="js/loader.js"></script>
   <script src="js/desktop.js"></script>
+  <script src="js/fx.js"></script>
 </body>
 </html>
